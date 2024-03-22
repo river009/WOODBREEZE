@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"></head>
+<body>
+<div style="background-color: #fdf7e4" th:fragment="bodyHeader">
+    <nav class="navbar-expand-lg">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="py-1 mx-1"><span th:text="|${member.name}님 환영합니다.|"></span></li>
+                <li class="py-1 mx-1"><form th:action="@{/logout}" method="post" class="ms-2">
+                    <button class="w-100 btn btn-dark btn-sm">로그아웃</button>
+                </form></li>
+                <li><a class="btn btn-sm py-2 mx-2" href="/members/new">직원등록</a></li>
+                <li><a class="btn btn-sm py-2 mx-2" href="/members">직원목록</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="#" style="color: #7a6c3c">WoodBreez</a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
+    </div>
+    <nav class="navbar navbar-expand-md navm">
+        <div class="container-fluid justify-content-center navm1">
+            <ul class="nav justify-content-center d-none d-md-inline-flex">
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product">재고확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/order/create">주문하기</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/orders">주문목록</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/processcontrol">공정제어</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/process">공정확인</a></li>
+                <li><a class="btn btn-sm py-2 mx-2"  href="/product/view">공정시각화</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <h2>주문</h2>
+    <form role="form" method="post" th:object="${form}">
+        <label for="productName">제품 이름 :</label>
+        <select th:field="*{productName}" id="productName">
+            <option th:each="product : ${T(woodbreeze.wdb.domain.ProductName).values()}"
+                    th:value="${product}" th:text="${product}"></option>
+        </select>
+        <br>
+        <label for="planQTY">제품 수량 :</label>
+        <input type="number" id="planQTY" name="planQTY" required><br>
+
+        <button type="submit">주문</button>
+    </form>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>
