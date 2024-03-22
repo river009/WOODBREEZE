@@ -16,9 +16,12 @@
  프로젝트 목적 : 생산 lot 추적 플랫폼 구축 
 
 <h3> 1) 테이블 설계도</h3>  
-
+<details>
+    <summary>자세히</summary>
+ 
 ![woodbreeze](https://github.com/river009/WOODBREEZE/assets/155034953/a30f2e13-e1d1-40a2-8d82-d6ad71f72da0)
 
+</details>
 <h3> 2) 화면구성 </h3>  
 
 
