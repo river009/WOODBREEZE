@@ -1,5 +1,5 @@
-![header](https://capsule-render.vercel.app/api?type=wave&color=auto&height=300&section=header&text=WOOD%20BREEZE&fontSize=90)
-
+![header](https://capsule-render.vercel.app/api?type=venom&color=auto&height=300&section=header&text=WOOD%20BREEZE&fontSize=90)
+<hr>
 <H1>폴더구조</H1>  
 
 📦src  
