@@ -1,5 +1,14 @@
 ![header](https://capsule-render.vercel.app/api?type=venom&color=auto&height=300&section=header&text=WOOD%20BREEZE&fontSize=90)
 <hr>
+<h3>:calendar: 1차 개발 기간 : 2024.02.16 ~ 2024.03.15 </h3>
+<h3>:calendar: 2차 개발 기간 : 2024.03.20 ~ 진행중 </h3>
+<h3>:hamster: 멤버 구성 </h3>
+
+|임가람|김태현|박수아|
+|------|---|---|
+|테스트1|테스트2|테스트3|
+
+<hr>
 <H1>폴더구조</H1>  
 
 📦src  
