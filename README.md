@@ -1,16 +1,22 @@
 ![header](https://capsule-render.vercel.app/api?type=venom&color=auto&height=300&section=header&text=WOOD%20BREEZE&fontSize=90)
 <hr>
 <h3>:calendar: 1차 개발 기간 : 2024.02.16 ~ 2024.03.15 </h3>
-<h3>:calendar: 2차 개발 기간 : 2024.03.20 ~ 진행중 </h3>
-<div align=center>	
+<h3>:calendar: 2차 개발 기간 : 2024.03.20 ~ 진행중    </h3>
 <h3>:hamster: 팀원소개 </h3>
 
 |임가람|김태현|박수아|
 |------|---|---|
 |![캡처](https://github.com/river009/WOODBREEZE/assets/155034953/1eed7307-76c6-4647-9847-17ddcaf304d2)|![2](https://github.com/river009/WOODBREEZE/assets/155034953/41d824c3-e9fc-48bf-ae53-d242307f471c)|![3](https://github.com/river009/WOODBREEZE/assets/155034953/899ab1bb-a8ba-4d41-a6f4-d3c5c7b76194)|
-</div>	
+
 <hr>
-<H1>폴더구조</H1>  
+
+<h2>:triangular_flag_on_post:프로젝트 소개</h2>
+
+<h2>:books:기술스텍</h2>
+
+<h2>:sparkles:기능 설명</h2>
+
+<H2>:file_folder:폴더구조</H2>  
 
 📦src  
  ┣ 📂main  
