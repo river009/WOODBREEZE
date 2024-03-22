@@ -15,9 +15,11 @@
  
  프로젝트 목적 : 생산 lot 추적 플랫폼 구축 
 
-<h3>테이블</h3>  
+<h3> 1) 테이블 설계도</h3>  
 
+![woodbreeze](https://github.com/river009/WOODBREEZE/assets/155034953/a30f2e13-e1d1-40a2-8d82-d6ad71f72da0)
 
+<h3> 2) 화면구성 </h3>  
 
 
 <h2>:books:기술스텍</h2>
@@ -26,11 +28,14 @@
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
 
-
-
 <h2>:sparkles:기능 설명</h2>
 
 <H2>:file_folder:폴더구조</H2>  
+
+<details>
+    <summary>자세히</summary>
+
+<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
 
 📦src  
  ┣ 📂main  
@@ -146,3 +151,5 @@
  ┃ ┃ ┃ ┃ ┣ 📜ProductList1.html   
  ┃ ┃ ┃ ┃ ┗ 📜updateProductForm.html  
  ┃ ┃ ┗ 📜application.yml  
+
+</details>
