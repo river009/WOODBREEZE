@@ -15,6 +15,11 @@
  
  프로젝트 목적 : 생산 lot 추적 플랫폼 구축 
 
+<h3>테이블</h3>  
+
+
+
+
 <h2>:books:기술스텍</h2>
 <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
 <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
