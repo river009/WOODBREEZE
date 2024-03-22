@@ -17,7 +17,7 @@
 
 <h3> 1) 테이블 설계도</h3>  
 <details>
-    <summary>자세히</summary>
+    <summary>설계도 펼치기</summary>
  
 ![woodbreeze](https://github.com/river009/WOODBREEZE/assets/155034953/a30f2e13-e1d1-40a2-8d82-d6ad71f72da0)
 
