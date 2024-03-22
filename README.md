@@ -11,6 +11,9 @@
 <hr>
 
 <h2>:triangular_flag_on_post:프로젝트 소개</h2>
+ 프로젝트 이름 : WOOD BREEZE  
+ 
+ 프로젝트 목적 : 생산 lot 추적 플랫폼 구축 
 
 <h2>:books:기술스텍</h2>
 
