@@ -9,6 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import woodbreeze.wdb.domain.*;
+import woodbreeze.wdb.domain.Process;
+import woodbreeze.wdb.repository.ControlStatusRepository;
+import woodbreeze.wdb.repository.ProcessRepository;
+import woodbreeze.wdb.service.ControlStatusService;
 import woodbreeze.wdb.service.LotService;
 import woodbreeze.wdb.service.ProductService;
 
@@ -23,6 +27,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final LotService lotService;
+    private  final ControlStatusRepository controlStatusRepository;
     private final Product product = new Product(); // 필드 초기화
 
 
@@ -255,7 +260,6 @@ public class ProductController {
     }
 
 
-
     // 삭제
     @GetMapping("/product/{id}/delete")
     public String deleteProduct(@PathVariable Long id) {
@@ -271,7 +275,26 @@ public class ProductController {
         }
     }
 
+    //공정 시각화 !!
+    @GetMapping("/product/view")
+    public String listView(Model model){
+        ControlStatus controlStatus1 = controlStatusRepository.findOne(1L);
+        ControlStatus controlStatus2 = controlStatusRepository.findOne(2L);
+        ControlStatus controlStatus3 = controlStatusRepository.findOne(3L);
+        ControlStatus controlStatus4 = controlStatusRepository.findOne(4L);
+        ControlStatus controlStatus5 = controlStatusRepository.findOne(5L);
+        ControlStatus controlStatus6 = controlStatusRepository.findOne(6L);
 
+        // 모델에 데이터 추가
+        model.addAttribute("process1", controlStatus1);
+        model.addAttribute("process2", controlStatus2);
+        model.addAttribute("process3", controlStatus3);
+        model.addAttribute("process4", controlStatus4);
+        model.addAttribute("process5", controlStatus5);
+        model.addAttribute("process6", controlStatus6);
+
+        return "product/productData";
+    }
 
 
 }

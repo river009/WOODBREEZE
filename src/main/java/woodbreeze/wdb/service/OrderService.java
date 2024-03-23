@@ -26,7 +26,6 @@ public class OrderService {
         if (order.getPlanQTY() < 0) {
             throw new IllegalArgumentException("주문량은 음수일 수 없습니다 : " + order.getPlanQTY());
         }
-        String product = String.valueOf(productService.getProductFromProductName(order.getProductName()));
         order.setWorkOrderId(AAWorkOrderId());
 
         orderRepository.save(order);

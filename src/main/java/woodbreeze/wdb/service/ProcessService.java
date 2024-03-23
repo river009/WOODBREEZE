@@ -1,6 +1,7 @@
 package woodbreeze.wdb.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,145 +17,152 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import static org.hibernate.query.sqm.tree.SqmNode.log;
+import static woodbreeze.wdb.domain.InspectionStatus.PASS;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class ProcessService {
 
     private final ProcessRepository processRepository;
     private final LotRepository lotRepository;
-    private final ProductRepository productRepository;
     private final InspectionService inspectionService;
-    private final ProductService productService;
     private final ControlStatusService controlStatusService;
     private final ControlStatusRepository controlStatusRepository;
+    private final ProductService productService;
     private final OrderService orderService;
-    private final OrderRepository orderRepository;
-    private final ErrorService errorServeice;
+    private final ErrorService errorService;
 
 
     @Transactional
     public void process1(Orders orders) {
-        //planQTY 값 모두 0으로 초기화
+        // 주문 번호를 사용하여 정보 조회
+        Orders retrievedOrder = orderService.findByWorkOrderId(orders.getWorkOrderId());
+        // 주문 정보의 제품명과 계획 수량 확인
+        ProductName productName = retrievedOrder.getProductName();
+        int planQTY = retrievedOrder.getPlanQTY();
+        log.info("주문 정보 - 제품명: {}, 계획 수량: {}", productName, planQTY);
 
-        log.info("공정 1을 실행합니다.");
-        // 주문 객체에서 주문번호를 가져옴
-        String WorkOrderId = orders.getWorkOrderId();
-        log.info("주문번호를 가져왔습니다.");
-        //주문 번호 사용하여 정보 조회
-        Product product = orderService.findByWorkOrderId(orders.getWorkOrderId()).getProduct();
-        log.info("정보를 조회했습니다.");
-        // 프로세스 1을 가져옵니다.
-        Process process1 = processRepository.findById(1L);
-
-        // ControlStatus 가져오기
+        // ControlStatus 객체 생성
         ControlStatus controlStatus = controlStatusService.findOne(1L);
-        List<Product> products = productRepository.findAll();
+        // ControlStatus의 planQTY 설정
+        controlStatus.setPlanQTY(retrievedOrder.getPlanQTY());
+        controlStatusService.saveControlStatus(controlStatus);
+        log.info("제품 수량이 저장되었습니다.");
 
+        // 해당 제품명에 매핑된 원자재 가져오기
+        MaterialName materialName = productService.getMaterialNameForProduct(productName);
+        // 재고 차감
+        productService.restockMaterial(materialName, orders); //  해당 메서드에서 차감, 수량 저장
+        
+        Process process1 = processRepository.findById(1L);
         // Process 객체와 Product 객체를 인자로 전달하여 공정 실행
         executeProcess(process1, orders, controlStatus);
-
+        log.info("MATERIAL 생산정보 - 계획수량: {}, 반제품: {}, 불량품: {}", controlStatus.getPlanQTY(), controlStatus.getDefects(),controlStatus.getDefective());
         // 다음 공정 실행
-        process2(orders, controlStatus);
+        process2(orders, controlStatus, retrievedOrder);
     }
 
     @Transactional
-    public void process2 (Orders orders, ControlStatus controlStatus) {
+    public void process2(Orders orders, ControlStatus controlStatus,Orders retrievedOrder) {
         log.info("공정 2를 실행합니다.");
         Process process2 = processRepository.findById(2L);
-        controlStatusService.findOne(2L);
-        //QTY 는 이전 공정에서 받아와야함
-        executeProcess(process2, orders, controlStatus);
-        process3(orders,controlStatus );
+        ControlStatus controlStatus2 = controlStatusService.findOne(2L);
+        controlStatus2.setPlanQTY(retrievedOrder.getPlanQTY());
+        controlStatusService.saveControlStatus(controlStatus2);
+        executeProcess(process2, orders, controlStatus2);
+        log.info("ASSEMBLY 생산정보 - 계획수량: {}, 반제품: {}, 불량품: {}", controlStatus2.getPlanQTY(), controlStatus2.getDefects(),controlStatus2.getDefective());
+        process3(orders, controlStatus, retrievedOrder);
     }
 
     @Transactional
-    public void process3 (Orders orders, ControlStatus controlStatus) {
+    public void process3(Orders orders, ControlStatus controlStatus, Orders retrievedOrder) {
         log.info("공정 3을 실행합니다.");
         Process process3 = processRepository.findById(3L);
-        controlStatusService.findOne(3L);
-        executeProcess(process3, orders, controlStatus);
-        process4(orders,controlStatus );
+        ControlStatus controlStatus3 = controlStatusService.findOne(3L);
+        controlStatus3.setPlanQTY(retrievedOrder.getPlanQTY());
+        controlStatusService.saveControlStatus(controlStatus3);
+        executeProcess(process3, orders, controlStatus3);
+        log.info("SURFACE 생산정보 - 계획수량: {}, 반제품: {}, 불량품: {}", controlStatus3.getPlanQTY(), controlStatus3.getDefects(),controlStatus3.getDefective());
+        process4(orders, controlStatus, retrievedOrder);
     }
 
     @Transactional
-    public void process4 (Orders orders, ControlStatus controlStatus) {
+    public void process4(Orders orders, ControlStatus controlStatus, Orders retrievedOrder) {
         log.info("공정 4를 실행합니다.");
         Process process4 = processRepository.findById(4L);
-        controlStatusService.findOne(4L);
-        executeProcess(process4, orders, controlStatus);
-        process5(orders,controlStatus );
+        ControlStatus controlStatus4 = controlStatusService.findOne(4L);
+        controlStatus4.setPlanQTY(retrievedOrder.getPlanQTY());
+        controlStatusService.saveControlStatus(controlStatus4);
+        // 재고 차감 (페인트)
+        productService.restockMaterial(MaterialName.ORGANICPAINT, orders); //  해당 메서드에서 차감, 수량 저장
+        executeProcess(process4, orders, controlStatus4);
+        log.info("PAINT 생산정보 - 계획수량: {}, 반제품: {}, 불량품: {}", controlStatus4.getPlanQTY(), controlStatus4.getDefects(),controlStatus4.getDefective());
+        process5(orders, controlStatus, retrievedOrder);
     }
 
     @Transactional
-    public void process5 (Orders orders, ControlStatus controlStatus) {
+    public void process5(Orders orders, ControlStatus controlStatus, Orders retrievedOrder) {
         log.info("공정 5을 실행합니다.");
         Process process5 = processRepository.findById(5L);
-        controlStatusService.findOne(5L);
-        executeProcess(process5, orders, controlStatus);
-        process6(orders,controlStatus );
+        ControlStatus controlStatus5 = controlStatusService.findOne(5L);
+        controlStatus5.setPlanQTY(retrievedOrder.getPlanQTY());
+        controlStatusService.saveControlStatus(controlStatus5);
+        executeProcess(process5, orders, controlStatus5);
+        log.info("QUALITY 생산정보 - 계획수량: {}, 반제품: {}, 불량품: {}", controlStatus5.getPlanQTY(), controlStatus5.getDefects(),controlStatus5.getDefective());
+        process6(orders, controlStatus, retrievedOrder);
     }
 
     @Transactional
-    public void process6 (Orders orders, ControlStatus controlStatus) {
-        Process process6 = processRepository.findById(6L);
+    public void process6(Orders orders, ControlStatus controlStatus, Orders retrievedOrder) {
         log.info("공정 6을 실행합니다.");
-        controlStatusService.findOne(6L);
-        //여기서의 반제품은 완제품이 되어야함.
-        executeProcess(process6, orders, controlStatus);
-
-        // 주문 상태를 CREATED로 설정
+        Process process6 = processRepository.findById(6L);
+        ControlStatus controlStatus6 = controlStatusService.findOne(6L);
+        controlStatus6.setPlanQTY(retrievedOrder.getPlanQTY());
+        // 여기서의 반제품은 완제품이 되어야 함.
+        executeProcess(process6, orders, controlStatus6);
+        controlStatus6.setFault(controlStatus6.getDefects());
+        log.info("PACKAGING 생산정보 - 계획수량: {}, 완제품: {}, 불량품: {}", controlStatus6.getPlanQTY(), controlStatus6.getFault(),controlStatus6.getDefective());
+        // 주문 상태를 COMPLETED로 설정
         orders.setOrderStatus(OrderStatus.COMPLETED);
         orderService.saveOrder(orders);
-        controlStatusService.saveControlStatus(controlStatus);
+        controlStatusService.saveControlStatus(controlStatus6);
+        log.info("주문 상태가 변경되었습니다.");
     }
 
     
     //전체 공정
     @Transactional
     public void executeProcess(Process process, Orders orders, ControlStatus controlStatus) {
-        // 공정 실행 상태를 가져옵니다.
-        log.info("공정 상태를 확인합니다.");
+        log.info("공정을 시작합니다.");
         boolean isRunning = controlStatusRepository.isRunning();
-
-        log.info("주문수량을 확인합니다.");
-
         if (!isRunning) {
             log.info("공정을 건너뜁니다.");
             return;
         }
-
-        log.info("검수를 진행합니다.");
-        // 불량률 확인을 위한 검수 실행
-        Inspection inspection = inspectionService.productInspection();
-        if (InspectionStatus.FAIL.equals(inspection.getResult())) {
-            log.info("불량으로 판정되었습니다.");
-            errorServeice.randomError();
-            if (controlStatus != null) {
+        // 목표 개수에 도달할 때까지 반복하여 공정을 실행합니다.
+        while (true) {
+            if (controlStatus.getDefects() == controlStatus.getPlanQTY()) {
+                log.info("목표 개수를 달성하여 공정을 종료합니다.");
+                break;
+            }
+            // 품질검사 실행
+            Inspection inspection = inspectionService.productInspection();
+            if (InspectionStatus.FAIL.equals(inspection.getResult())) {
+                log.info("불량으로 판정되었습니다.");
+                errorService.randomError();
                 controlStatus.setDefective(controlStatus.getDefective() + 1); // 불량품 개수 업데이트
-                controlStatusRepository.update(controlStatus);
+            } else {
+                log.info("양품으로 판정되었습니다.");
+                controlStatus.setDefects(controlStatus.getDefects() + 1); // 반제품 개수 업데이트
             }
-        } else {
-            log.info("불량이 아닌 제품으로 판정되었습니다.");
-            if (controlStatus != null) {
-                controlStatus.setDefects(controlStatus.getDefects() + 1);
-
-                }
-            }
-        // 목표 개수를 다 채웠다면 불량품과 반제품 개수를 저장하고 종료합니다.
-        int targetQuantity = controlStatus.getPlanQTY();
-        if (controlStatus.getDefects() == targetQuantity) {
-            controlStatus.setFault(controlStatus.getFault() + controlStatus.getDefects()); // 불량품 개수를 완제품에 더함
-            controlStatusRepository.update(controlStatus);
-            log.info("목표 개수를 달성하여 공정을 종료합니다.");
-            // 공정 종료 처리
+            // controlStatus를 데이터베이스에 저장
+            controlStatusRepository.save(controlStatus);
         }
     }
-
-
     
-    public ProcessName getProcessNameById(Long processId) { //추가!!! - 가람
+    public ProcessName getProcessNameById(Long processId) {
         // 프로세스 아이디로 프로세스를 조회하여 해당 프로세스의 이름을 반환
         Process process = processRepository.findById(processId);
         if (process != null) {

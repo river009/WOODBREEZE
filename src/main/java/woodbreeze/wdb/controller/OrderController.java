@@ -56,7 +56,7 @@ public class OrderController {
         orders.setId(form.getId());
         orders.setWorkOrderId(form.getWorkOrderId());
         int planQTY = form.getPlanQTY(); // 주문량 가져오기
-        controlStatus.setPlanQTY(planQTY);
+//        controlStatus.setPlanQTY(planQTY);
         orders.setPlanQTY(planQTY);
         orders.setProductName(form.getProductName());
 

@@ -24,10 +24,10 @@ public class OrderScheduler {
     }
 
     // 매 1분마다 오더 리스트를 체크하는 메서드
-    @Scheduled(cron = "0 0/1 0-23 * * MON-FRI") // 매 1분마다, 월요일부터 금요일까지 오전 8시부터 오후 6시 사이에 작업을 실행
+    @Scheduled(cron = "0 0/3 0-23 * * *") // 매 1분마다, 매일 오전 8시부터 오후 6시 사이에 작업을 실행
     public void checkOrderList() {
         log.info("OrderList를 확인합니다.");
-        List<Orders> ordersList = orderRepository.findCreatOrder(); // 데이터베이스에서 모든 오더 리스트를 가져옴
+        List<Orders> ordersList = orderRepository.findCreatOrder(); // 데이터베이스에서 상태가 크리에이트인 오더 리스트를 가져옴
         log.info("OrderList 확인 완료");
 
         // 각 주문에 대한 처리

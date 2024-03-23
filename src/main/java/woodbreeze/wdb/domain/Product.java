@@ -26,17 +26,12 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private MaterialName materialName; //원재료이름
-    private int endProduct; //완제품
-    private int defects; // 반제품
-    private int fault; // 불량품
-    private  int planQTY; // 발주 수량
+    @Enumerated(EnumType.STRING)
+    private ProductName productName; //제품이름
     private LocalDate dateReceived; // 예상시간
     private String manufacturer; // 제조회사
     private int materialQuantity; // 원자재 수
     private LocalDate expiry; // 유통기한
-    private int endProductQuantity; // 추가!!
-    @Enumerated(EnumType.STRING) //추가!!!!!
-    private ProductName productName; // 제품 이름
 
     @ManyToOne
     @JoinColumn(name = "process_id") //
@@ -69,13 +64,5 @@ public class Product {
         allMaterial(null, materialName, quantity, LocalDate.now(), "Manufacturer", expiry);
         this.lot = lot;
     }
-
-    //    // 원자재 재고 감소, lot번호와 함께 저장
-    // 원자재를 제품에 속한 원자재 목록에서 찾아서 재고를 1씩 감소시키는 메서드
-    // 원자재 이름으로 제품 조회 후 원자재 수 감소
-    // 원자재 재고를 감소시키는 메서드
-
-
-//------------------------------------------
 
 }

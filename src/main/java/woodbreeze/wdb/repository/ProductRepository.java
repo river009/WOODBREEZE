@@ -28,14 +28,6 @@ public void save(Product product) {
     }
 }
 
-    // 추가한 완제품을 저장
-    public void saveProduct(Product product) {
-        if (product.getProductName() == null) {
-            em.persist(product); // 새로운 원자재인 경우
-        } else {
-            em.merge(product); // 기존의 원자재인 경우
-        }
-    }
 
 
 
@@ -53,6 +45,14 @@ public void save(Product product) {
     public List<Product> findByMaterialName(String materialName) {
         return em.createQuery("select p from Product p where p.materialName = :materialName", Product.class)
                 .setParameter("materialName", MaterialName.valueOf(materialName))
+                .getResultList();
+    }
+
+
+    // 원자재 이름으로 하나 제품 찾기
+    public List<Product> findByOneMaterialName(MaterialName materialName) {
+        return em.createQuery("select p from Product p where p.materialName = :materialName", Product.class)
+                .setParameter("materialName", materialName)
                 .getResultList();
     }
 

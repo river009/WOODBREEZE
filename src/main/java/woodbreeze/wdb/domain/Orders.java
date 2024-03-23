@@ -34,8 +34,8 @@ public class Orders {
     //private Product productDefId; // 제품번호
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id") // Product 테이블의 primary key 컬럼명을 사용하세요
     private Product product; // Product와의 관계 설정
+
 
     @Column(name = "group_name")
     private String groupName;
