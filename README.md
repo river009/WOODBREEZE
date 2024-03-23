@@ -6,7 +6,7 @@
 
 |임가람|김태현|박수아|
 |------|---|---|
-|![캡처](https://github.com/river009/WOODBREEZE/assets/155034953/1eed7307-76c6-4647-9847-17ddcaf304d2)|![2](https://github.com/river009/WOODBREEZE/assets/155034953/41d824c3-e9fc-48bf-ae53-d242307f471c)|![3](https://github.com/river009/WOODBREEZE/assets/155034953/899ab1bb-a8ba-4d41-a6f4-d3c5c7b76194)|
+|![스크린샷 2024-03-23 172309](https://github.com/river009/WOODBREEZE/assets/155034953/e11417bb-dd55-4f6e-a78c-a787c777f7f1)|![2](https://github.com/river009/WOODBREEZE/assets/155034953/41d824c3-e9fc-48bf-ae53-d242307f471c)|![스크린샷 2024-03-23 172159](https://github.com/river009/WOODBREEZE/assets/155034953/2a63778e-d185-435c-931e-12f869e2322b)|
 
 <hr>
 
