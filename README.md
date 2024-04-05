@@ -15,6 +15,9 @@
  
  프로젝트 목적 : 생산 lot 추적 플랫폼 구축 
 
+<H2>QR코드</H2>
+![우드브리즈QR](https://github.com/river009/WOODBREEZE/assets/155034953/338c2087-e9de-4e4b-b160-b14d6adb70e4)
+
 <h3> 1) 테이블 설계도</h3>  
 <details>
     <summary>설계도 펼치기</summary>
