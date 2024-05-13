@@ -54,7 +54,7 @@
                 <td th:text="${order.orderStatus}"></td>
                 <td th:text="${order.member.name}"></td>
                 <td th:unless="${order.member != null}">회원 없음</td>
-                <td><button class="" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">주문 취소</button></td>
+                <td><button class="btn btn-sm" style="background-color: #e6ddc8" th:onclick="'cancelOrder(\'' + ${order.id} + '\')'">주문 취소</button></td>
             </tr>
             </tbody>
         </table>

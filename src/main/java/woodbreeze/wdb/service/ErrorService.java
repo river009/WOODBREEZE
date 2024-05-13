@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woodbreeze.wdb.domain.Error;
 import woodbreeze.wdb.domain.ErrorType;
+import woodbreeze.wdb.domain.Inspection;
 import woodbreeze.wdb.repository.ErrorRepository;
+import woodbreeze.wdb.repository.InspectionRepository;
 
 import java.util.List;
 import java.util.Random;
@@ -17,6 +19,7 @@ import java.util.Random;
 public class ErrorService {
 
     private final ErrorRepository errorRepository;
+    private final InspectionRepository inspectionRepository;
 
     // 에러 저장
     @Transactional
@@ -37,20 +40,28 @@ public class ErrorService {
 
     // 랜덤으로 에러 발생
     @Transactional
-    public void randomError() {
-        // 랜덤 로직 구현
-        // 예시: 모든 에러 중에서 랜덤하게 선택하여 발생
+    public String getRandomErrorMessage() {
         List<Error> allErrors = errorRepository.findAllErrors();
         if (!allErrors.isEmpty()) {
             int randomIndex = new Random().nextInt(allErrors.size());
             Error randomError = allErrors.get(randomIndex);
-            // 여기서 에러를 처리하거나 로깅하는 등의 로직을 추가
-            System.out.println("Random Error: " + randomError);
-
-            // 랜덤하게 선택된 에러를 저장
-            saveError(randomError.getErrorCode(), randomError.getErrorMessage(), randomError.getErrorName(), randomError.getErrorType().name());
+            return randomError.getErrorMessage();
+        } else {
+            return "No errors found";
         }
     }
+
+
+    @Transactional
+   public Error randomError() {
+        List<Error> allErrors = errorRepository.findAllErrors();
+        if (!allErrors.isEmpty()) {
+            int randomIndex = new Random().nextInt(allErrors.size());
+            return allErrors.get(randomIndex);
+        } else {
+            return null;
+        }
+     }
 
     // 특정 에러 종류 조회
 //    public List<Error> findErrorsByType(String errorType) {

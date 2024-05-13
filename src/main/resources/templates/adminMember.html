@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="~{fragments/header :: header}"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script> <!--차트js-->
+
 <body>
 <div class="hbc" th:fragment="bodyHeader">
     <nav class="navbar-expand-lg">
@@ -21,43 +21,53 @@
         <h3 class="fw-bold py-4 menut"><a class="text-decoration-none" href="#" style="color: #7a6c3c"><img src="/image/logo.png"></a></h3> <!--텍스트데코레이션 - 논 안하면 밑줄생김-->
     </div>
     <nav class="navbar navbar-expand-md navm">
-        <div class="container-fluid justify-content-center navm1">
-            <ul class="nav justify-content-center d-none d-md-inline-flex">
-                <li><a class="btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
-                <li><a class="btn btn-sm py-2 mx-2"  href="/product">재고확인</a></li>
-                <li><a class="btn btn-sm py-2 mx-2"  href="/order/create">주문하기</a></li>
-                <li><a class="btn btn-sm py-2 mx-2"  href="/orders">주문목록</a></li>
-                <li><a class="btn btn-sm py-2 mx-2"  href="/processcontrol">공정제어</a></li>
-                <li><a class="btn btn-sm py-2 mx-2"  href="/process">공정확인</a></li>
-                <li><a class="btn btn-sm py-2 mx-2"  href="/product/view">공정시각화</a></li>
-            </ul>
+        <div class="container justify-content-center navm1">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menubar"
+                    aria-controls="menubar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse navm1" id="menubar">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2"  href="/product/new">재고입력</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product">재고확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/order/create">주문하기</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/processcontrol">공정제어</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/process">공정확인</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-sm py-2 mx-2" href="/product/view">공정시각화</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 </div>
+
 <!--그래프-->
-<section class="text-center pt-5">
+<section class="text-center py-5">
     <div class="container">
         <div class="row mt-3 rounded-3 adminMain1 py-4">
             <h2>생산공정현황</h2>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <canvas id="chart1"></canvas>
-                <h4 class="text-black">재료/가공</h4>
+                <h4 class="text-black">제1공정</h4>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <canvas id="chart2"></canvas>
-                <h4 class="text-black">조립</h4>
+                <h4 class="text-black">제2공정</h4>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <canvas id="chart3"></canvas>
-                <h4 class="text-black">표면처리/마감</h4>
+                <h4 class="text-black">제3공정</h4>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <canvas id="chart4"></canvas>
-                <h4 class="text-black">품질검사 </h4>
+                <h4 class="text-black">제4공정</h4>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <canvas id="chart5"></canvas>
-                <h4 class="text-black">검수</h4>
+                <h4 class="text-black">제5공정</h4>
+            </div>
+            <div class="col-sm-2">
+                <canvas id="chart6"></canvas>
+                <h4 class="text-black">제6공정</h4>
             </div>
         </div>
     </div>
@@ -75,7 +85,7 @@
                 <img src="/image/공정과정.png" class="img-fluid rounded-4">
                 <p class="text-center">생산과정</p>
             </div>
-            <div class="col-6 mt-3">
+            <div class="col-6 mt-3">0
                 <img src="/image/공정포장.jpg" class="img-fluid rounded-4">
                 <p class="text-center">공정포장</p>
             </div>
@@ -95,7 +105,7 @@
                 'rgb(128, 188, 189)',
                 'rgb(170, 217, 187)',
                 'rgb(213, 240, 193)',
-                'rgb(249, 247, 201)',
+                'rgb(208, 72, 72)',
             ],
             borderWidth: 1
         }]};
@@ -104,10 +114,10 @@
             label: ' of Votes',
             data: [ 19, 3, 5, 3],
             backgroundColor: [
-                'rgb(232, 243, 214)',
-                'rgb(252, 249, 190)',
-                'rgb(255, 220, 169)',
-                'rgb(250, 171, 120)',
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
             ],
             borderWidth: 1
         }]};
@@ -116,10 +126,10 @@
             label: ' of Votes',
             data: [12, 5, 2, 3],
             backgroundColor: [
-                'rgb(255, 247, 138)',
-                'rgb(255, 227, 130)',
-                'rgb(255, 196, 126)',
-                'rgb(255, 173, 132)',
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
             ],
             borderWidth: 1
         }]};
@@ -128,10 +138,10 @@
             label: ' of Votes',
             data: [ 3, 5, 2, 3],
             backgroundColor: [
-                'rgb(255, 245, 228)',
-                'rgb(255, 227, 225)',
-                'rgb(255, 209, 209)',
-                'rgb(255, 148, 148)',
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
             ],
             borderWidth: 1
         }]};
@@ -140,14 +150,26 @@
             label: ' of Votes',
             data: [ 3, 5, 2, 3],
             backgroundColor: [
-                'rgb(178, 179, 119)',
-                'rgb(210, 209, 128)',
-                'rgb(229, 228, 131)',
-                'rgb(241, 245, 168)',
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
             ],
             borderWidth: 1
         }]};
     var chartOptions5 = { /* chart5 데이터 및 옵션 설정 */ };
+    var chartData6 = { datasets: [{
+            label: ' of Votes',
+            data: [ 3, 5, 2, 3],
+            backgroundColor: [
+                'rgb(128, 188, 189)',
+                'rgb(170, 217, 187)',
+                'rgb(213, 240, 193)',
+                'rgb(208, 72, 72)',
+            ],
+            borderWidth: 1
+        }]};
+    var chartOptions6 = { /* chart5 데이터 및 옵션 설정 */ };
 
     // 차트 생성
     var ctx1 = document.getElementById('chart1').getContext('2d');
@@ -184,6 +206,16 @@
         data: chartData5,
         options: chartOptions5
     });
+    var ctx6 = document.getElementById('chart6').getContext('2d');
+    var chart6 = new Chart(ctx6, {
+        type: 'doughnut',
+        data: chartData6,
+        options: chartOptions6
+    });
 
 </script>
+<script src="./js/bootstrap.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </html>

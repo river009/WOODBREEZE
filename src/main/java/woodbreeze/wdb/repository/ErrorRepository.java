@@ -28,6 +28,10 @@ public class ErrorRepository {
         return query.getResultList();
     }
 
+    public Error findById(Long id) {
+        return em.find(Error.class, id);
+    }
+
 //    // 특정 에러 종류 조회
 //    public List<Error> findErrorsByType(String errorType) {
 //        String jpql = "SELECT e FROM Error e WHERE e.errorCode LIKE :errorType%";

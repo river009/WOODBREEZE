@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter @Setter
 public class Error {
@@ -20,5 +23,8 @@ public class Error {
 
     @Enumerated(EnumType.STRING)
     private ErrorType errorType;
+
+   @OneToMany(mappedBy = "error")
+   private List<Inspection> inspections = new ArrayList<>();
 
 }

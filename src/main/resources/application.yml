@@ -5,9 +5,9 @@ spring:
   #    password:
   #    driver-class-name: org.h2.Driver
   datasource:
-    url: jdbc:mysql://localhost:3306/woodbreeze?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
+    url: jdbc:mysql://ls-7b928fb780e4444b1b104d15dce9f02077a50965.c9ieu4022sls.ap-northeast-2.rds.amazonaws.com:3306/testdb?serverTimezone=UTC&characterEncoding=UTF-8
+    username: dbmasteruser
+    password: z=5boCEP8vK^bF9]VIX7+i<I|L9BHO4R
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate.ddl-auto: update  #create  #  #애플리케이션 생성시점에 기본 앤티티지우고 다시 생성한다.

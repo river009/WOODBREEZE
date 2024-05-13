@@ -32,10 +32,10 @@ public class InspectionRepository {
                 .getResultList();
     }
 
-    // 특정 공정의 검수 조회
-    public List<Inspection> findInspectionsByProcessId(Long processId) {
-        return em.createQuery("SELECT i FROM Inspection i WHERE i.process.id = :processId", Inspection.class)
-                .setParameter("processId", processId)
-                .getResultList();
-    }
+// 특정 공정의 검수 조회
+public List<Inspection> findInspectionsByProcessId(Long processId) {
+    return em.createQuery("SELECT i FROM Inspection i WHERE i.processId = :processId", Inspection.class)
+            .setParameter("processId", processId)
+            .getResultList();
+}
 }

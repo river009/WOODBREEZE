@@ -4,6 +4,7 @@
 <body>
 <div th:insert="~{fragments/bodyHeader :: bodyHeader}"></div>
 <div class="container border mt-2 rounded-3" style="width: 300px; border-color: #fefcf6;">
+    <p>아이디:test <br> 비밀번호:1234</p>
     <div class="box1">
         <h2 class="py-4 text-center" style="color: #7a6c3c">로그인</h2>
         <form role="form" th:object="${loginForm}" method="post" class="py-2">

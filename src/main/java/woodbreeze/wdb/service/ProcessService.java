@@ -6,6 +6,7 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import woodbreeze.wdb.domain.*;
+import woodbreeze.wdb.domain.Error;
 import woodbreeze.wdb.domain.Process;
 import woodbreeze.wdb.exception.NotEnoughStockException;
 import woodbreeze.wdb.repository.*;
@@ -151,11 +152,16 @@ public class ProcessService {
             Inspection inspection = inspectionService.productInspection();
             if (InspectionStatus.FAIL.equals(inspection.getResult())) {
                 log.info("불량으로 판정되었습니다.");
-                errorService.randomError();
+                String randomErrorMessage = errorService.getRandomErrorMessage(); // 랜덤 에러 가져오기
+                Error randomError = errorService.randomError();
+                inspection.setError(randomError); // 에러 저장
+                inspection.setErrorMessage(randomErrorMessage); // 에러 이름 저장
                 controlStatus.setDefective(controlStatus.getDefective() + 1); // 불량품 개수 업데이트
+                inspection.setProcessId(controlStatus.getId());
             } else {
                 log.info("양품으로 판정되었습니다.");
                 controlStatus.setDefects(controlStatus.getDefects() + 1); // 반제품 개수 업데이트
+                inspection.setProcessId(controlStatus.getId());
             }
             // controlStatus를 데이터베이스에 저장
             controlStatusRepository.save(controlStatus);
