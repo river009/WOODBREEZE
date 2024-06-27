@@ -1,7 +1,7 @@
 ![header](https://capsule-render.vercel.app/api?type=venom&color=auto&height=300&section=header&text=WOOD%20BREEZE&fontSize=90)
 <hr>
 <h3>:calendar: 1차 개발 기간 : 2024.02.16 ~ 2024.03.15 </h3>
-<h3>:calendar: 2차 개발 기간 : 2024.03.30 ~ 진행중    </h3>
+<h3>:calendar: 2차 개발 기간 : 2024.03.30 ~ 2024.04.10 </h3>
 <h3>:hamster: 팀원소개 </h3>
 
 |임가람|김태현|박수아|
@@ -14,10 +14,6 @@
  프로젝트 이름 : WOOD BREEZE  
  
  프로젝트 목적 : 생산 lot 추적 플랫폼 구축 
-
-<H2>QR코드</H2>  
-
-![우드브리즈QR](https://github.com/river009/WOODBREEZE/assets/155034953/338c2087-e9de-4e4b-b160-b14d6adb70e4)
 
 <h3> 1) 테이블 설계도</h3>  
 <details>
